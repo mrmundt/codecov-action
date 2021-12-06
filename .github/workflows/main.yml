@@ -6,6 +6,7 @@ jobs:
     strategy:
       matrix:
         os: [macos-latest, windows-latest, ubuntu-latest]
+        python: [3.6, 3.7, 3.8]
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -27,8 +28,8 @@ jobs:
         with:
           files: ./coverage/calculator/coverage-final.json,./coverage/coverage-test/coverage-final.json
           file: ./coverage/coverage-final.json
-          flags: version,${{ matrix.os }}
-          name: codecov-version
+          flags: ${{ matrix.python }},${{ matrix.os }}
+          name: codecov-${{ matrix.python }}
           version: v0.1.0_8880
   run:
     runs-on: ${{ matrix.os }}
